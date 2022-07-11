@@ -8,9 +8,10 @@ wyreToken = os.getenv("WYRE_TOKEN")
 
 """
 Get list of wallets
+Reference: https://docs.sendwyre.com/reference/listwalletspaginated
+Limit field may be optional here
 """
-def listWallets():
-    limit = 20
+def listWallets(limit):
     url = f"https://api.testwyre.com/v2/wallets?limit={limit}"
 
     headers = {
@@ -25,14 +26,17 @@ def listWallets():
 """
 Creating a wallet
 Reference: https://docs.sendwyre.com/reference/createwallet
+
+There is also an optional callback URL field but I don't how it works yet
+Wallets are referenced by an ID provide by the response from Wyre
 """
-def createWallet():
+def createWallet(type, name, notes):
     url = "https://api.testwyre.com/v2/wallets"
 
     payload = {
-        "type": "DEFAULT",
-        "name": "test",
-        "notes": "test wallet"
+        "type": f"{type}",
+        "name": f"{name}",
+        "notes": f"{notes}"
     }
     headers = {
         "Accept": "application/json",
@@ -48,9 +52,8 @@ def createWallet():
 Deleting a wallet
 Reference: https://docs.sendwyre.com/reference/deletewallet
 """
-def deleteWallet():
+def deleteWallet(wallet_id):
 
-    wallet_id = "WA_8W28FR9FWHH"
     url = f"https://api.testwyre.com/v2/wallet/{wallet_id}"
 
     headers = {

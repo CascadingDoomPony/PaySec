@@ -114,9 +114,9 @@ def createTransaction():
         "Authorization": "Bearer TEST-SK-BNAG6XPU-V82BGUCQ-63TLCPXQ-D7MQ8C2V"
     }
 
-response = requests.post(url, json=payload, headers=headers)
+    response = requests.post(url, json=payload, headers=headers)
 
-print(response.text)
+    print(response.text)
 
 
 def main():

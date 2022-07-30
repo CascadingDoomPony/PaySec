@@ -27,6 +27,7 @@ Tasks:
 # Generate keypair (public and secret) https://stellar-sdk.readthedocs.io/en/stable/generate_keypair.html
 # Required for creating account
 # Can be generated from a given public or secret key, in this case we get a random one
+# Pairs created from public key cant be used to sign things
 
 def generateKeypair():
     keypair = Keypair.random()
@@ -45,7 +46,7 @@ def friendbotAccount(keypair):
 def generateAsset(keypair):
     # Creates TEST asset issued by keypair.public_key
     test_asset = Asset("TEST", keypair.public_key)
-    is_native = test_asset.is_native()  # False
+    #is_native = test_asset.is_native()  # False
     return test_asset
 
 
@@ -111,6 +112,11 @@ def issueAsset(issuing_asset, issuing_secret_key, distributing_secret_key):
     payment_transaction_resp = server.submit_transaction(payment_transaction)
     print(f"Payment Transaction Resp:\n{payment_transaction_resp}")
 
-keypair = generateKeypair()
-print(keypair.public_key)
-print(friendbotAccount(keypair).json)
+issuing_keypair = generateKeypair()
+distributing_keypair = generateKeypair()
+
+issuing_account = friendbotAccount(issuing_keypair)
+distributing_account = friendbotAccount(distributing_keypair)
+asset = generateAsset(issuing_keypair)
+
+issueAsset(asset, issuing_keypair.secret, distributing_keypair.secret)

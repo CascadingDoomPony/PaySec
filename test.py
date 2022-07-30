@@ -53,7 +53,6 @@ Sample response:
   "type": "DEFAULT",
   "status": null
 }
-
 """
 def createWallet(type, name, notes):
     url = "https://api.testwyre.com/v2/wallets"

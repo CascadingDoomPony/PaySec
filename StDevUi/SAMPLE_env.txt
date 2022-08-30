@@ -1,1 +1,0 @@
-WYRE_TOKEN = "your secret key from Wyre dashboard (test-env)"

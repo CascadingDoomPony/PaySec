@@ -1,0 +1,95 @@
+{% load static %} {% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {% block "title" %}
+    <title>{% if title %}{{ title|safe }}{% else %}{% trans "SEP24 reference server" %}{% endif %}</title>
+    {% endblock %}
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin&display=swap">
+    <link rel="stylesheet" href="{% static 'polaris/base.css' %}" />
+    <style>
+      {% comment %}
+      Due to the static image, can't put the background in .scss
+      {% endcomment %}
+      .control select:not([multiple]) {
+        background-image: url("{% static "polaris/chevron-down.svg" %}");
+        background-repeat: no-repeat;
+        background-position: right 1em top 50%, 0 0;
+      }
+    </style>
+
+    {% block "extra_head" %}
+    {% endblock %}
+  </head>
+  <body>
+    {% block "header" %}
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        {% if icon_path %}
+        <img class="logo" src="{% static icon_path %}" alt="" />
+        {% elif org_logo_url %}
+        <img class="logo" src="{{ org_logo_url }}" alt="" />
+        {% else %}
+        <img class="logo" src="{% static 'polaris/company-icon.svg' %}" alt="" />
+        {% endif %}
+        {% if icon_label %}
+        <a class="title" href="#">
+            {{ icon_label|safe }}
+        </a>
+        {% endif %}
+      </div>
+    </nav>
+    {% endblock %}
+    <div class="main-content">
+      {% block "content" %}
+      {% endblock %}
+    </div>
+
+    {# Rendered via custom extra_body template #}
+    {% block "extra_body" %}
+    {% endblock %}
+
+    <div class="bottom section">
+      {% block "footer" %}
+      {% endblock %}
+    </div>
+
+    <script type="text/javascript" src="{% static 'polaris/scripts/number.js' %}"></script>
+    <script type="text/javascript" src="{% static 'polaris/scripts/styleHelpers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'polaris/scripts/disableSubmitOnClick.js' %}"></script>
+    <script type="text/javascript" src="{% static 'polaris/scripts/dynamicAmountPadding.js' %}"></script>
+    <script type="text/javascript" src="{% static 'polaris/scripts/feeTable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'polaris/scripts/timezone.js' %}"></script>
+    <script type="text/javascript">
+      styleHelpers({
+        languageCode: "{{ LANGUAGE_CODE }}"
+      });
+      feeTable({
+        operation: "{{ operation }}",
+        additiveFeesEnabled: "{{ additive_fees_enabled }}" === "True",
+        depositFeeFixed: {{ asset.deposit_fee_fixed|default:0 }},
+        depositFeePercent: {{ asset.deposit_fee_percent|default:0 }},
+        withdrawalFeeFixed: {{ asset.withdrawal_fee_fixed|default:0 }},
+        withdrawalFeePercent: {{ asset.withdrawal_fee_percent|default:0 }},
+        significantDecimals: {{ asset.significant_decimals|default:2 }},
+        symbol: "{{ symbol }}",
+        assetCode: "{{ asset.code }}",
+        useFeeEndpoint: "{{ use_fee_endpoint }}" === "True",
+        languageCode: "{{ LANGUAGE_CODE }}",
+        parseNumber: parseNumber,
+        formatNumber: formatNumber,
+        showFeeTable: "{{ show_fee_table }}" === "True"
+      });
+      fetchTimezone({
+        tzEndpoint: "{{ timezone_endpoint }}",
+        sessionId: "{{ session_id }}",
+        sessionOffset: {{ current_offset|default:0 }}
+      });
+    </script>
+  </body>
+</html>

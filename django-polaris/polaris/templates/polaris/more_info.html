@@ -1,0 +1,171 @@
+{% extends "./base.html" %} {% load i18n %} {% load tz %} {% load static %}
+
+{% block "title" %}
+<title>{% if title %} {{ title|safe }} {% else %} {% trans "Transaction More Info" %} {% endif %}</title>
+{% endblock %}
+
+{% block "content" %}
+<section class="section receipt">
+    {# Instructions, if present, came from the anchor's more_info extension #}
+    {# Note that the anchor's block must detect if instructions are necessary #}
+    {# The anchor must determine the appropriate instructions (or none) from their own context #}
+
+    {% block "instructions" %}
+    {% endblock %}
+
+    {% block "info_items" %}
+    <div class="info-item">
+        <div class="info-label">
+            {% trans "transaction type" %}
+        </div>
+        <div class="field-value">
+            {% if "deposit" in transaction.kind %}
+                {% trans "deposit" %}
+            {% else %}
+                {% trans "withdrawal" %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="info-item">
+        <div class="info-label">
+            {% trans "Transaction ID" %}
+        </div>
+        <div class="field-value">
+            {{ transaction.id }}
+        </div>
+    </div>
+
+    <div class="info-item">
+        <div class="info-label">
+            {% if transaction.status == "incomplete" or transaction.status == "pending_user_transfer_start" %}
+              {% trans "send amount" %}
+            {% else %}
+              {% trans "amount sent" %}
+            {% endif %}
+        </div>
+        <div class="field-value">
+            {{ amount_in_symbol }} {{ transaction.amount_in|floatformat:amount_in_significant_decimals }}
+        </div>
+    </div>
+
+    {% if transaction.amount_fee %}
+    {% if transaction.quote %}
+    {% if transaction.fee_asset == amount_in_asset %}
+    <div class="info-item">
+        <div class="info-label">
+            {% trans "fees" %}
+        </div>
+        <div class="field-value">
+            {{ amount_fee_symbol }} {{ transaction.amount_fee|floatformat:amount_fee_significant_decimals }}
+        </div>
+    </div>
+
+    <div class="info-item">
+        <div class="info-label">
+            {% trans "exchange amount" %}
+        </div>
+        <div class="field-value">
+            {{ amount_fee_symbol }} {{ exchange_amount|floatformat:amount_fee_significant_decimals }}
+        </div>
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="info-item">
+        <div class="info-label">
+            {% trans "fees" %}
+        </div>
+        <div class="field-value">
+            {{ amount_fee_symbol }} {{ transaction.amount_fee|floatformat:amount_fee_significant_decimals }}
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+
+    {% if transaction.quote and transaction.quote.price %}
+    <div class="info-item">
+        <div class="info-label">
+            {% trans "exchange rate" %}
+        </div>
+        <div class="field-value">
+            {{ amount_in_symbol }} 1.00 = {{ amount_out_symbol }} {{ price_inversion|floatformat:price_inversion_significant_decimals }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if transaction.amount_fee and transaction.quote and transaction.fee_asset == amount_out_asset %}
+    <div class="info-item">
+        <div class="info-label">
+            {% trans "exchanged amount" %}
+        </div>
+        <div class="field-value">
+            {{ amount_fee_symbol }} {{ exchanged_amount|floatformat:amount_fee_significant_decimals }}
+        </div>
+    </div>
+
+    <div class="info-item">
+        <div class="info-label">
+            {% trans "fees" %}
+        </div>
+        <div class="field-value">
+            {{ amount_fee_symbol }} {{ transaction.amount_fee|floatformat:amount_fee_significant_decimals }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if transaction.amount_out %}
+    <div class="info-item">
+        <div class="info-label">
+            {% if transaction.status != "completed" %}
+                {% trans "receive amount" %}
+            {% else %}
+                {% trans "amount received" %}
+            {% endif %}
+        </div>
+        <div class="field-value">
+            {{ amount_out_symbol }} {{ transaction.amount_out|floatformat:amount_out_significant_decimals }}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="info-item">
+        <div class="info-label">
+            {% trans "transaction status" %}
+        </div>
+        <div class="field-value">
+            {{ transaction.message }}
+        </div>
+    </div>
+
+    <div class="info-item">
+        <div class="info-label">
+            {% trans "started" %}
+        </div>
+        <div class="field-value">
+            {{ transaction.started_at|localtime }}
+        </div>
+    </div>
+
+    {% if transaction.status == "completed" %}
+        <div class="info-item">
+            <div class="info-label">
+                {% trans "completed" %}
+            </div>
+            <div class="field-value">
+                {{ transaction.completed_at|localtime }}
+            </div>
+        </div>
+    {% endif %}
+    {% endblock %}
+
+    <script type="text/javascript" src="{% static 'polaris/scripts/callback.js' %}"></script>
+    <script type="text/javascript">
+        callback({
+            txJSON: '{{ tx_json|safe }}',
+            onChangeCallback: '{{ transaction.on_change_callback }}',
+            transactionStatus: '{{ transaction.status }}',
+            callback: '{{ callback|safe }}'
+        })
+    </script>
+</section>
+{% endblock %}

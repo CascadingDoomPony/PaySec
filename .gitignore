@@ -1,3 +1,135 @@
 .env
 _pycache_
+
+
+# Byte-compiled / optimized / DLL files
+/django-polaris/__pycache__/
+/django-polaris/*.py[cod]
+/django-polaris/*$py.class
+
+# C extensions
+/django-polaris/*.so
+
+# Distribution / packaging
+/django-polaris/.Python
+/django-polaris/build/
+/django-polaris/develop-eggs/
+/django-polaris/dist/
+/django-polaris/downloads/
+/django-polaris/eggs/
+/django-polaris/.eggs/
+/django-polaris/lib/
+/django-polaris/lib64/
+/django-polaris/parts/
+/django-polaris/sdist/
+/django-polaris/var/
+/django-polaris/wheels/
+/django-polaris/pip-wheel-metadata/
+/django-polaris/share/python-wheels/
+/django-polaris/*.egg-info/
+/django-polaris/.installed.cfg
+/django-polaris/*.egg
+/django-polaris/MANIFEST
+/django-polaris/*.DS_Store
+/django-polaris/.vscode
+/django-polaris/.idea
+
+# Static files
+/django-polaris/polaris/collectstatic/*
+/django-polaris/!polaris/collectstatic/__init__.py
+/django-polaris/server/collectstatic/*
+/django-polaris/!server/collectstatic/__init__.py
+
+# Database
+/django-polaris/data/db.sqlite3
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+/django-polaris/*.manifest
+/django-polaris/*.spec
+
+# Installer logs
+/django-polaris/pip-log.txt
+/django-polaris/pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+/django-polaris/htmlcov/
+/django-polaris/.tox/
+/django-polaris/.nox/
+/django-polaris/.coverage
+/django-polaris/.coverage.*
+/django-polaris/.cache
+/django-polaris/nosetests.xml
+/django-polaris/coverage.xml
+/django-polaris/*.cover
+/django-polaris/.hypothesis/
+/django-polaris/.pytest_cache/
+
+# Translations
+/django-polaris/*.pot
+
+# Django stuff:
+/django-polaris/*.log
+/django-polaris/local_settings.py
+/django-polaris/db.sqlite3-journal
+
+# Flask stuff:
+/django-polaris/instance/
+/django-polaris/.webassets-cache
+
+# Scrapy stuff:
+/django-polaris/.scrapy
+
+# Sphinx documentation
+/django-polaris/docs/_build/
+
+# PyBuilder
+/django-polaris/target/
+
+# Jupyter Notebook
+/django-polaris/.ipynb_checkpoints
+
+# IPython
+/django-polaris/profile_default/
+/django-polaris/ipython_config.py
+
+# pyenv
+/django-polaris/.python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# SageMath parsed files
+/django-polaris/*.sage.py
+
+# Environments
 /django-polaris/.env
+/django-polaris/.venv
+/django-polaris/env/
+/django-polaris/venv/
+/django-polaris/ENV/
+/django-polaris/env.bak/
+/django-polaris/venv.bak/
+
+# Spyder project settings
+/django-polaris/.spyderproject
+/django-polaris/.spyproject
+
+# Rope project settings
+/django-polaris/.ropeproject
+
+# mkdocs documentation
+/django-polaris/site
+
+# mypy
+/django-polaris/.mypy_cache/
+/django-polaris/.dmypy.json
+/django-polaris/dmypy.json
+
+# Pyre type checker
+/django-polaris/.pyre/

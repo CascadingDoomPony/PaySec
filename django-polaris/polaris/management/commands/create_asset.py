@@ -26,7 +26,7 @@ class Command(BaseCommand):
         distributor = options.get("distribution_seed")
 
         Asset.objects.create(
-            code="TEST",
+            code="PYSC",
             issuer=issuer.public_key,
             distribution_seed=distributor,
             sep6_enabled=True,

@@ -9,32 +9,22 @@ class Command(BaseCommand):
     """def add_arguments(self, parser):
         parser.add_argument('poll_ids', nargs='+', type=int)"""
 
-    def add_arguments(self, parser):  # pragma: no cover
-        self.command_parser = parser
-        self.command_parser.add_argument(
-            "--issuer-seed", "-i", help="the issuer's secret key"
-        )
-        self.command_parser.add_argument(
-            "--distribution-seed", "-d", help="the distribution account's secret key"
-        )
-
-
     def handle(self, *args, **options):
-        issuer = Keypair.from_secret(
-            options.get("issuer_seed")
-        )
-        distributor = options.get("distribution_seed")
+        issuer = Keypair.random()
+        distributor = Keypair.random()
+
+        with open("secretKeys.txt", "w") as f:
+            f.write(f"{issuer.secret}\n{distributor.secret}")
 
         Asset.objects.create(
-            code="PYSC",
+            code="TEST",
             issuer=issuer.public_key,
-            distribution_seed=distributor,
+            distribution_seed=distributor.secret,
             sep6_enabled=True,
             sep24_enabled=True,
             deposit_enabled=True,
             withdrawal_enabled=True,
             symbol="$"
         )
-        print(f"Created Asset issuer: {issuer.public_key}, distributer {distributor}")
 
 

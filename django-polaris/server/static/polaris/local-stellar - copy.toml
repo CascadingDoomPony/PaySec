@@ -1,13 +1,13 @@
 ACCOUNTS = []
-SIGNING_KEY = ""
+SIGNING_KEY = "GCL57UXXIQGY7V6NJGMJBWPOCOEGUS27L2RR3B7MKYQ2KVHGWURXR7PX"
 NETWORK_PASSPHRASE = "Test SDF Network ; September 2015"
 
-TRANSFER_SERVER = "https://testanchor.stellar.org/sep6"
-TRANSFER_SERVER_SEP0024 = "https://testanchor.stellar.org/sep24"
-WEB_AUTH_ENDPOINT = "https://testanchor.stellar.org/auth"
-KYC_SERVER = "https://testanchor.stellar.org/kyc"
-DIRECT_PAYMENT_SERVER = "https://testanchor.stellar.org/sep31"
-ANCHOR_QUOTE_SERVER = "https://testanchor.stellar.org/sep38"
+TRANSFER_SERVER = "http://localhost:8000/sep6"
+TRANSFER_SERVER_SEP0024 = "http://localhost:8000/sep24"
+WEB_AUTH_ENDPOINT = "http://localhost:8000/auth"
+KYC_SERVER = "http://localhost:8000/kyc"
+DIRECT_PAYMENT_SERVER = "http://localhost:8000/sep31"
+ANCHOR_QUOTE_SERVER = "http://localhost:8000/sep38"
 
 [[CURRENCIES]]
 code = "PYSC"

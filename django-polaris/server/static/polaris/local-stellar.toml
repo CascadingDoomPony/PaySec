@@ -1,23 +1,13 @@
-ACCOUNTS = []
-SIGNING_KEY = ""
-NETWORK_PASSPHRASE = "Test SDF Network ; September 2015"
-
+SIGNING_KEY = "GCL57UXXIQGY7V6NJGMJBWPOCOEGUS27L2RR3B7MKYQ2KVHGWURXR7PX"
 TRANSFER_SERVER = "http://localhost:8000/sep6"
 TRANSFER_SERVER_SEP0024 = "http://localhost:8000/sep24"
 WEB_AUTH_ENDPOINT = "http://localhost:8000/auth"
 KYC_SERVER = "http://localhost:8000/kyc"
 DIRECT_PAYMENT_SERVER = "http://localhost:8000/sep31"
 ANCHOR_QUOTE_SERVER = "http://localhost:8000/sep38"
-
 [[CURRENCIES]]
 code = "PYSC"
 issuer = "GCL57UXXIQGY7V6NJGMJBWPOCOEGUS27L2RR3B7MKYQ2KVHGWURXR7PX"
-status = "test"
-is_asset_anchored = false
-desc = "Paysec Asset representing a package."
 
-[DOCUMENTATION]
-ORG_NAME = "Stellar Development Foundation"
-ORG_URL = "https://stellar.org"
-ORG_DESCRIPTION = "The Stellar Development Foundation (SDF) is a non-profit organization whose mission is to create equitable access to the global financial system."
-ORG_GITHUB = "stellar"
+[Documentation]
+Sample = "Sample"

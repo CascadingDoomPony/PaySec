@@ -1,3 +1,4 @@
+#from importlib.metadata import distribution
 from django.core.management.base import BaseCommand, CommandError
 from polaris.models import Asset
 
@@ -36,5 +37,7 @@ class Command(BaseCommand):
             symbol="$"
         )
         print(f"Created Asset issuer: {issuer.public_key}, distributer {distributor}")
+        
+        print(Asset.objects.first().distribution_account)
 
 
